@@ -1,11 +1,35 @@
 # Frost Authenticator
 
-Frost Authenticator 是一个面向 Ubuntu 的本地离线 TOTP Authenticator，使用 **PyQt6** 构建桌面界面，使用加密保险库存储验证码密钥。
+Frost Authenticator 是一个面向 Ubuntu 的本地离线 TOTP Authenticator，使用 **PyQt6** 构建桌面界面，使用加密保险库存储验证码密钥。它的用途是作为 **Google Authenticator 的桌面替代方案**：为 Google、GitHub 以及其他支持 Authenticator App / TOTP 的网站生成登录所需的二次验证代码。
 
 - **需要**：Python 3.12
 - **推荐环境**：Ubuntu 24.04 LTS
 - **数据位置**：`~/.local/share/frost-authenticator/vault.json`
 - **运行方式**：本地离线运行，不依赖云同步
+
+
+## 用途：通用网站 2FA Authenticator
+
+Frost Authenticator 用于替代手机端 Google Authenticator、Microsoft Authenticator 的“验证码生成器”部分，承担网站登录时的 2FA / MFA 验证码角色。
+
+典型使用场景：
+
+- 登录 Google 账号时，输入由 Frost Authenticator 生成的 6 位验证码；
+- 登录 GitHub 时，输入由 Frost Authenticator 生成的 two-factor authentication code；
+- 登录支持“Authenticator app”“Google Authenticator”“TOTP”“Time-based one-time password”的网站时，使用 Frost 保存该网站提供的二维码或 Base32 密钥；
+- 把验证码生成器放在 Ubuntu 桌面上，而不是依赖手机、浏览器插件或云同步服务。
+
+工作方式很简单：网站在开启 2FA 时通常会显示一个二维码，或提供一段手动输入密钥。这个二维码/密钥本质上是一个 TOTP 种子。Frost Authenticator 将它保存在本地加密保险库中，并按时间生成一次性验证码。之后每次登录该网站时，打开 Frost，复制当前验证码，填入网站的 2FA 输入框即可。
+
+适用网站包括但不限于：
+
+- Google / Gmail / Google Workspace；
+- GitHub；
+- GitLab；
+- Microsoft、Amazon、Cloudflare、Discord、Proton、Tailscale 等支持标准 TOTP 的服务；
+- 自建系统、服务器面板、VPN、内网后台等支持 `otpauth://totp/...` 的登录系统。
+
+边界也要说清楚：Frost Authenticator 支持的是标准 TOTP 验证码，不是短信验证码、邮件验证码、硬件安全密钥、Passkey/WebAuthn、推送确认或某些厂商私有的设备绑定登录流程。如果网站要求“打开手机 App 点确认”，那不是 Frost 的目标；如果网站给你二维码让你用 Google Authenticator 扫描，通常就是 Frost 的目标。
 
 ## 功能
 
