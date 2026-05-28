@@ -291,7 +291,12 @@ class MainWindow(QMainWindow):
         header.setSectionResizeMode(6, QHeaderView.ResizeMode.ResizeToContents)
 
         add_button = QPushButton("＋ 添加")
-        add_button.clicked.connect(self.add_account)
+        # QPushButton.clicked and QAction.triggered pass a boolean ``checked``
+        # argument.  ``add_account`` also accepts an Account preset for imports,
+        # so connecting it directly makes that boolean look like a preset and
+        # crashes on ``dialog.populate(False)``.  Keep the UI action argument out
+        # of the application path.
+        add_button.clicked.connect(lambda _checked=False: self.add_account())
         qr_button = QPushButton("从二维码图片导入")
         qr_button.clicked.connect(self.import_qr)
         uri_button = QPushButton("从剪贴板 URI 导入")
@@ -323,7 +328,7 @@ class MainWindow(QMainWindow):
         self.addToolBar(toolbar)
 
         add_action = QAction("添加", self)
-        add_action.triggered.connect(self.add_account)
+        add_action.triggered.connect(lambda _checked=False: self.add_account())
         toolbar.addAction(add_action)
 
         lock_action = QAction("锁定并退出", self)
