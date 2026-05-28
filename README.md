@@ -46,7 +46,7 @@ Frost Authenticator 用于替代手机端 Google Authenticator、Microsoft Authe
 
 ## 为什么使用 Frost Authenticator，而不是 KeePassXC 等竞品？
 
-先说冰冷事实：KeePassXC 是成熟、强大、跨平台的密码管理器。它可以保存密码，也可以为条目生成 TOTP 验证码；[KeePassXC 官方用户指南](https://keepassxc.org/docs/KeePassXC_UserGuide)也说明，配置后它能像 Google Authenticator 一类应用那样计算 TOTP，并可配合复制粘贴、浏览器扩展和 Auto-Type 使用。  
+KeePassXC 是成熟、强大、跨平台的密码管理器。它可以保存密码，也可以为条目生成 TOTP 验证码；[KeePassXC 官方用户指南](https://keepassxc.org/docs/KeePassXC_UserGuide)也说明，配置后它能像 Google Authenticator 一类应用那样计算 TOTP，并可配合复制粘贴、浏览器扩展和 Auto-Type 使用。  
 
 Frost Authenticator 的目标不是“在所有维度击败 KeePassXC”，而是解决一个更窄、更明确的问题：**在 Ubuntu 桌面上，把二次验证代码从密码管理器的主工作流中拆出来，做成一个专注、轻量、可审计、离线的本地 TOTP 工具。**
 
