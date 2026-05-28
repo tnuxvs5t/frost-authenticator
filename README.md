@@ -96,6 +96,34 @@ otpauth://totp/Issuer:Account?secret=BASE32SECRET&issuer=Issuer
 .venv/bin/python -m pytest
 ```
 
+
+## 全局重置
+
+如果需要把 Frost Authenticator 恢复到首次运行状态，可以执行：
+
+```bash
+./scripts/reset_global.sh
+```
+
+它会重置：
+
+- `~/.local/share/frost-authenticator`
+- `~/.config/frost-authenticator`
+- `~/.cache/frost-authenticator`
+- Ubuntu 桌面启动器与图标
+
+安全边界：脚本会把已有本地数据移动到带时间戳的备份目录，而不是直接删除。备份位置类似：
+
+```text
+~/.local/share/frost-authenticator-backups/reset-YYYYmmdd-HHMMSS
+```
+
+如果只想重置本地数据、保留桌面启动器：
+
+```bash
+./scripts/reset_global.sh --keep-desktop
+```
+
 ## 卸载桌面启动器
 
 ```bash
